@@ -1,7 +1,26 @@
+import CreateForm from "../componets/home/createForm"
+import TodoDetail from "../componets/home/todoDetail"
+import { useState } from "react"
+
 export default function Home() {
+  const [formState, setFormState] = useState({
+    title: '',
+    desc: ''
+  })
+
+  const HandleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormState(prevState => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+
   return (
     <div>
-      <h1>hi</h1>
+      <CreateForm formData={formState} handleChange={HandleChange}></CreateForm>
+      <TodoDetail formData={formState}/>
     </div>
   )
 }
