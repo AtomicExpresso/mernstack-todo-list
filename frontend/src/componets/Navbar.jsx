@@ -1,7 +1,7 @@
 export default function Navbar(){
   return (
-    <div>
-      <h1>MERN To-do</h1>
+    <div className="navbar">
+      <h1><span>MERN</span> To-do</h1>
     </div>
   )
 }

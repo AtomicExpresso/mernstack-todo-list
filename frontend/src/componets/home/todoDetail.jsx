@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 export default function TodoDetail({formData}) {
   const [itemList, setItemList] = useState([])
@@ -36,17 +37,18 @@ export default function TodoDetail({formData}) {
   }
 
   return (
-    <div>
+    <>
       {itemList.length > 0 ? itemList.map(item => 
-          <div key={item._id}>
+          <div key={item._id} className="todo-item">
             <h1>{item.title}</h1>
+            <h3>Added: <span>{formatDistanceToNow(new Date (item.createdAt), {addSuffix: true})}</span></h3>
             <p>{item.desc}</p>
             <div className="item-btn-row">
-              <button onClick={() => handleEdit(item)}>Edit</button>
-              <button onClick={() => handleClick(item)}>Delete</button>
+              <button className="btn btn-primary" onClick={() => handleEdit(item)}>Edit</button>
+              <button className="btn btn-danger" onClick={() => handleClick(item)}>Delete</button>
             </div>
           </div>
       ) : null}
-    </div>
+    </>
   )
 }

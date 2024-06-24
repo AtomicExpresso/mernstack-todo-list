@@ -20,7 +20,9 @@ export default function Home() {
   return (
     <div>
       <CreateForm formData={formState} handleChange={HandleChange}></CreateForm>
-      <TodoDetail formData={formState}/>
+      <div className="todo-item-container">
+        <TodoDetail formData={formState}/>
+      </div>
     </div>
   )
 }

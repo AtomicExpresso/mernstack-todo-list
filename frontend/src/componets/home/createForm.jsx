@@ -31,19 +31,21 @@ export default function CreateForm({formData, handleChange}) {
   }
 
   return (
-    <div>
+    <div className="todo-form">
       <form onSubmit={(e) => SubmitForm(e)}>
         <label htmlFor="title">Title</label>
         <input type="text" 
           name="title" 
           onChange={(e) => handleChange(e)}
+          placeholder="What do you need to do?"
         ></input>
         <label htmlFor="desc">Description</label>
         <textarea 
           name="desc" 
-          onChange={(e) => handleChange(e)}>
+          onChange={(e) => handleChange(e)}
+          placeholder="Description.....">
         </textarea>
-        <button type="submit">Add</button>
+        <button className="btn btn-success" type="submit">Add</button>
       </form>
     </div>
   )
