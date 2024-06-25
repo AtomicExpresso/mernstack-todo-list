@@ -1,10 +1,16 @@
+'use client'
+
 import CreateForm from "../componets/home/createForm";
 import TodoDetail from "../componets/home/todoDetail";
 import EditPopup from "../componets/popups/EditPopup";
 import AddNewItemBtn from "../componets/home/addNewItemBtn";
-import { useState } from "react"
+import { useState, createContext, useEffect } from "react"
+
+//Context for todo list items
+export const listDataContext = createContext({})
 
 export default function Home() {
+  const [data, setData] = useState([])
   const [showCreatePopup, setShowCreatePopup] = useState(false)
   const [formState, setFormState] = useState({
     title: '',
@@ -21,6 +27,17 @@ export default function Home() {
     show: false,
     id: ''
   })
+
+  //Fetch data from the DB
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:4000/api/todo')
+      const data = await response.json()
+      setData(data)
+    }
+
+    fetchData()
+  }, [data])
 
   //Shows the editpopup
   const showCreatePopupFn = () => {
@@ -45,8 +62,6 @@ export default function Home() {
       [name]: value
     }))
   }
-
-  console.log(formEditChangeState)
 
   //Displays the edit popup and sets the ID to be the mongodb id from the item
   const HandleEditPopup = (item) => {
@@ -95,15 +110,15 @@ export default function Home() {
   return (
     <div>
       {showEditPopup.show ? 
-      <EditPopup 
-        closePopupNoSave={closePopupNoSave} 
-        itemInfo={showEditPopup}
-        HandleEditChange={HandleEditChange}
-        ClearForms={ClearForms}
-        EditFormInfo={formEditChangeState}
-        closePopupAfterSubmit={closePopupAfterSubmit}
-        HandleFetchedData={HandleFetchedData}
-        /> 
+        <EditPopup 
+          closePopupNoSave={closePopupNoSave} 
+          itemInfo={showEditPopup}
+          HandleEditChange={HandleEditChange}
+          ClearForms={ClearForms}
+          EditFormInfo={formEditChangeState}
+          closePopupAfterSubmit={closePopupAfterSubmit}
+          HandleFetchedData={HandleFetchedData}
+          /> 
       : null}
       <AddNewItemBtn
         showCreatePopupFn={showCreatePopupFn}
@@ -117,7 +132,9 @@ export default function Home() {
         />
       : null}
       <div className="todo-item-container">
-        <TodoDetail formData={formState} HandleEditPopup={HandleEditPopup}/>
+        <listDataContext.Provider value={data}>
+          <TodoDetail formData={formState} HandleEditPopup={HandleEditPopup}/>
+        </listDataContext.Provider>
       </div>
     </div>
   )
