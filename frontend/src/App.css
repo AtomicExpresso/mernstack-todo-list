@@ -57,6 +57,10 @@ body.noscroll{
   max-width: 300px;
 }
 
+.todo-item p {
+  max-width: 300px;
+}
+
 .todo-item h3{
  font-size: 17px;
  color: rgb(48, 48, 48);
@@ -120,7 +124,7 @@ body.noscroll{
 .create-btn{
   position: fixed;
   right: 5%;
-  bottom: 5%;
+  bottom: 10%;
   background-color: #198754;
   color: white;
   border: none;
