@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
 
-export default function CreateForm({formData, handleChange}) {
+export default function CreateForm({formData, handleChange, ClearForms}) {
 
   const SubmitForm = async (e) => {
     e.preventDefault()
@@ -19,7 +19,7 @@ export default function CreateForm({formData, handleChange}) {
       }
     })
 
-    console.log(response.body)
+    ClearForms()
     // const json = await response.json()
 
     // if(!response.ok){
