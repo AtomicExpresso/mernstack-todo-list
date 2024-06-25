@@ -54,6 +54,8 @@ export default function Home() {
       show: !showEditPopup.show, 
       id: item._id
     })
+
+    document.body.classList.add('noscroll')
   }
 
   //Handle Fetched data for the edit popup
@@ -78,8 +80,9 @@ export default function Home() {
   //Close the edit popup without saving the changes
   const closePopupNoSave = () => {
     setShowEditPopup({...showEditPopup, 
-      show: !showEditPopup.show
-    })
+      show: false
+    }) //We're spreading this one to save the id
+    setShowCreatePopup(false)
   }
 
   //Close the edit popup when user submits
@@ -110,6 +113,7 @@ export default function Home() {
         formData={formState} 
         handleChange={HandleChange}
         ClearForms={ClearForms}
+        closePopupNoSave={closePopupNoSave}
         />
       : null}
       <div className="todo-item-container">

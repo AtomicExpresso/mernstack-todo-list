@@ -1,3 +1,8 @@
+/*Prevents scrolling when a popup is displayed*/
+body.noscroll{
+  overflow-y: hidden;
+}
+
 .navbar{
   background-color: #198754;
   border-bottom: solid 2px rgba(128, 128, 128, 0.267);
@@ -31,27 +36,6 @@
   text-decoration: none;
 }
 
-.todo-form{
-  position: absolute;
-  margin-top: 10px;
-}
-
-.todo-form form{
-  display: flex;
-  background-color: white;
-  flex-direction: column;
-  gap: 10px;
-  margin: auto;
-  width: 280px;
-  border-radius: 10px;
-  border: solid 2px rgba(128, 128, 128, 0.393);
-  padding: 10px;
-}
-
-.todo-form textarea {
-  max-height: 200px;
-}
-
 .item-btn-row{
   display: flex;
   gap: 10px;
@@ -83,23 +67,34 @@
   color: rgb(82, 82, 82);
 }
 
-.edit-popup-content{
+.edit-popup-content,
+.todo-form{
+  position: absolute;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 10px auto;
   background-color: white;
   border: solid 2px rgba(128, 128, 128, 0.326);
   border-radius: 10px;
   padding: 20px 40px;
 }
 
-.edit-popup-content form {
+.edit-popup-content textarea,
+.todo-form textarea{
+  height: 150px;
+  width: 300px;
+  resize: none;
+}
+
+.edit-popup-content form,
+.todo-form form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.edit-popup-content h1{
+.edit-popup-content h1,
+.todo-form h1{
   margin: auto;
   font-weight: 600;
 }

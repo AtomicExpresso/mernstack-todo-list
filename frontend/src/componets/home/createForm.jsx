@@ -1,5 +1,5 @@
 'use client'
-export default function CreateForm({formData, handleChange, ClearForms}) {
+export default function CreateForm({formData, handleChange, ClearForms, closePopupNoSave}) {
 
   const SubmitForm = async (e) => {
     e.preventDefault()
@@ -23,21 +23,27 @@ export default function CreateForm({formData, handleChange, ClearForms}) {
   return (
     <div className="todo-form-container">
       <div className="todo-form">
-        <form onSubmit={(e) => SubmitForm(e)}>
-          <label htmlFor="title">Title</label>
-          <input type="text" 
-            name="title" 
-            onChange={(e) => handleChange(e)}
-            placeholder="What do you need to do?"
-          ></input>
-          <label htmlFor="desc">Description</label>
-          <textarea 
-            name="desc" 
-            onChange={(e) => handleChange(e)}
-            placeholder="Description.....">
-          </textarea>
-          <button className="btn btn-success" type="submit">Add</button>
-        </form>
+        <h1>Create</h1>
+        <div>
+          <form onSubmit={(e) => SubmitForm(e)}>
+            <label htmlFor="title">Title</label>
+            <input type="text" 
+              name="title" 
+              onChange={(e) => handleChange(e)}
+              placeholder="What do you need to do?"
+            ></input>
+            <label htmlFor="desc">Description</label>
+            <textarea 
+              name="desc" 
+              onChange={(e) => handleChange(e)}
+              placeholder="Description.....">
+            </textarea>
+            <div className="edit-btn-row">
+              <button className="btn btn-success" type="submit">Add</button>
+              <button className="btn btn-danger" type="button" onClick={closePopupNoSave}>Close</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )
