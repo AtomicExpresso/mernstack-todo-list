@@ -1,19 +1,27 @@
 'use client'
 
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { listDataContext } from "../../pages/Home";
 
-export default function TodoDetail({HandleEditPopup}) {
+export default function TodoDetail({HandleEditPopup, fetchData}) {
   const data = useContext(listDataContext)
 
-  const handleClick = (item) => {
-    fetch (`http://localhost:4000/api/todo/${item._id}`, {
-      method: 'DELETE'
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-  }
+  const handleClick = async (item) => {
+    try {
+      const response = await fetch (`http://localhost:4000/api/todo/${item._id}`, {
+        method: 'DELETE'
+      })
+      
+      if(!response.ok){
+        console.log('Unable to delete the item')
+      }
+  
+      fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
     <>

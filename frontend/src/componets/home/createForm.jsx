@@ -1,8 +1,21 @@
 'use client'
 export default function CreateForm({formData, handleChange, ClearForms, closePopupNoSave}) {
 
+  const HandleError = () => {
+    if(formData.title.length <= 0){
+      console.log('Cant submit')
+
+      return false
+    }
+  }
+
   const SubmitForm = async (e) => {
     e.preventDefault()
+    HandleError()
+
+    if(!HandleError){
+      return
+    }
 
     const EnterFormData = {
       title: formData.title, 

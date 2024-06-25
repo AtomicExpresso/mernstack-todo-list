@@ -18,7 +18,7 @@ export default function EditPopup({itemInfo, closePopupNoSave, HandleEditChange,
   }, [itemInfo.id])
 
   //Handles the form submit and sends a PATCH request to the Database 
-  const HandleSubmit = (e) => {
+  const HandleSubmit = async (e) => {
       e.preventDefault()
 
       const DataInfo = {
@@ -26,13 +26,13 @@ export default function EditPopup({itemInfo, closePopupNoSave, HandleEditChange,
         desc: EditFormInfo.desc
       }
 
-      fetch(`http://localhost:4000/api/todo/${itemInfo.id}`, {
-        method: 'PATCH',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(DataInfo)
-      })
+      const response = await fetch(`http://localhost:4000/api/todo/${itemInfo.id}`, {
+          method: 'PATCH',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(DataInfo)
+        })
 
       ClearForms(); //Clears the form
       closePopupAfterSubmit()
