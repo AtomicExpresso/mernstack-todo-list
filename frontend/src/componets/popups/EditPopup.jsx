@@ -1,22 +1,21 @@
 'use client'
 import { useEffect, useState } from "react"
 
-export default function EditPopup({itemInfo, closePopupNoSave, HandleEditChange, ClearForms, EditFormInfo, closePopupAfterSubmit}) {
-  const [fetchedFormData, setFetchedFormData] = useState([])
+export default function EditPopup({itemInfo, closePopupNoSave, HandleEditChange, ClearForms, EditFormInfo, closePopupAfterSubmit, HandleFetchedData}) {
   
   //Fetch Data
   useEffect(() => {
-    function fetchData() {
+    async function fetchData() {
       try {
-        let response = fetch(`http://localhost:4000/api/todo/${itemInfo.id}`)
-        response = response.json()
-        setFetchedFormData(response)
+        let response = await fetch(`http://localhost:4000/api/todo/${itemInfo.id}`)
+        let data = await response.json()
+        HandleFetchedData(data)
       } catch(error) {
         console.log(error)
       }
     }
     fetchData()
-  }, [])
+  }, [itemInfo.id])
 
   //Handles the form submit and sends a PATCH request to the Database 
   const HandleSubmit = (e) => {
@@ -49,17 +48,20 @@ export default function EditPopup({itemInfo, closePopupNoSave, HandleEditChange,
             <input 
               name="title" 
               placeholder="Name of todo"
-              value={itemInfo.title} 
+              value={EditFormInfo?.title} 
               onChange={(e) => HandleEditChange(e)
             }></input>
             <label htmlFor="desc">Description</label>
-            <textarea name="desc" 
+            <textarea 
+              name="desc" 
               placeholder="Description...."
-              value={itemInfo.desc} 
+              value={EditFormInfo?.desc}
               onChange={(e) => HandleEditChange(e)
             }></textarea>
-            <button type="submit" className="btn btn-primary">Submit</button>
-            <button className="btn btn-danger" onClick={closePopupNoSave}>Close</button>
+            <div className="edit-btn-row">
+              <button type="submit" className="btn btn-primary">Submit</button>
+              <button className="btn btn-danger" onClick={closePopupNoSave}>Close</button>
+            </div>
           </form>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import CreateForm from "../componets/home/createForm";
 import TodoDetail from "../componets/home/todoDetail";
 import EditPopup from "../componets/popups/EditPopup";
+import AddNewItemBtn from "../componets/home/addNewItemBtn";
 import { useState } from "react"
 
 export default function Home() {
+  const [showCreatePopup, setShowCreatePopup] = useState(false)
   const [formState, setFormState] = useState({
     title: '',
     desc: ''
@@ -19,6 +21,11 @@ export default function Home() {
     show: false,
     id: ''
   })
+
+  //Shows the editpopup
+  const showCreatePopupFn = () => {
+    setShowCreatePopup(prevState => !prevState)
+  }
 
   //Handles form state for creating new items
   const HandleChange = (e) => {
@@ -39,6 +46,8 @@ export default function Home() {
     }))
   }
 
+  console.log(formEditChangeState)
+
   //Displays the edit popup and sets the ID to be the mongodb id from the item
   const HandleEditPopup = (item) => {
     setShowEditPopup({...showEditPopup, 
@@ -47,7 +56,12 @@ export default function Home() {
     })
   }
 
-  //Clear Both forms, after either of them are submitted
+  //Handle Fetched data for the edit popup
+  const HandleFetchedData = (obj) => {
+    setFormEditChangeState(obj)
+  }
+
+  //Clear Both forms and removes the popups, after either of them are submitted
   const ClearForms = () => {
     setFormEditChangeState({
       title: '',
@@ -56,7 +70,9 @@ export default function Home() {
     setFormState({
       title: '',
       desc: ''
-    })
+    });
+
+    setShowCreatePopup(false)
   }
 
   //Close the edit popup without saving the changes
@@ -83,13 +99,19 @@ export default function Home() {
         ClearForms={ClearForms}
         EditFormInfo={formEditChangeState}
         closePopupAfterSubmit={closePopupAfterSubmit}
+        HandleFetchedData={HandleFetchedData}
         /> 
       : null}
-      <CreateForm 
+      <AddNewItemBtn
+        showCreatePopupFn={showCreatePopupFn}
+      />
+      {showCreatePopup ?
+        <CreateForm 
         formData={formState} 
         handleChange={HandleChange}
         ClearForms={ClearForms}
-        ></CreateForm>
+        />
+      : null}
       <div className="todo-item-container">
         <TodoDetail formData={formState} HandleEditPopup={HandleEditPopup}/>
       </div>

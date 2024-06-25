@@ -1,6 +1,4 @@
 'use client'
-import { useState } from "react"
-
 export default function CreateForm({formData, handleChange, ClearForms}) {
 
   const SubmitForm = async (e) => {
@@ -20,33 +18,27 @@ export default function CreateForm({formData, handleChange, ClearForms}) {
     })
 
     ClearForms()
-    // const json = await response.json()
-
-    // if(!response.ok){
-    //   console.log('an error occured:', json)
-    // }
-    // if(response.ok){
-    //   console.log(json)
-    // }
   }
 
   return (
-    <div className="todo-form">
-      <form onSubmit={(e) => SubmitForm(e)}>
-        <label htmlFor="title">Title</label>
-        <input type="text" 
-          name="title" 
-          onChange={(e) => handleChange(e)}
-          placeholder="What do you need to do?"
-        ></input>
-        <label htmlFor="desc">Description</label>
-        <textarea 
-          name="desc" 
-          onChange={(e) => handleChange(e)}
-          placeholder="Description.....">
-        </textarea>
-        <button className="btn btn-success" type="submit">Add</button>
-      </form>
+    <div className="todo-form-container">
+      <div className="todo-form">
+        <form onSubmit={(e) => SubmitForm(e)}>
+          <label htmlFor="title">Title</label>
+          <input type="text" 
+            name="title" 
+            onChange={(e) => handleChange(e)}
+            placeholder="What do you need to do?"
+          ></input>
+          <label htmlFor="desc">Description</label>
+          <textarea 
+            name="desc" 
+            onChange={(e) => handleChange(e)}
+            placeholder="Description.....">
+          </textarea>
+          <button className="btn btn-success" type="submit">Add</button>
+        </form>
+      </div>
     </div>
   )
 }

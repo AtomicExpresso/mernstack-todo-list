@@ -19,6 +19,7 @@
   background-color: rgb(26, 26, 26);
   padding: 10px;
   height: 60px;
+  margin-top: 200px;
 }
 
 .footer h3 {
@@ -31,11 +32,13 @@
 }
 
 .todo-form{
+  position: absolute;
   margin-top: 10px;
 }
 
 .todo-form form{
   display: flex;
+  background-color: white;
   flex-direction: column;
   gap: 10px;
   margin: auto;
@@ -87,13 +90,55 @@
   background-color: white;
   border: solid 2px rgba(128, 128, 128, 0.326);
   border-radius: 10px;
+  padding: 20px 40px;
 }
 
-.edit-popup-container{
+.edit-popup-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-popup-content h1{
+  margin: auto;
+  font-weight: 600;
+}
+
+.edit-btn-row{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.edit-popup-container,
+.todo-form-container{
   position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.468);
+  background-color: rgba(0, 0, 0, 0.619);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+}
+
+.create-btn{
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  background-color: #198754;
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.create-btn:hover{
+  background-color: #13673f;
+}
+
+.create-btn:active{
+  background-color: #0f4e30;
 }

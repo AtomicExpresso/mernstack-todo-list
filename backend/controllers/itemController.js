@@ -8,8 +8,17 @@ const getAllItems = async (req, res) => {
   res.status(200).json(allItems)
 }
 
-const getSingleItem = (req, res) => {
-  res.status(200).json({msg: 'GET single item'})
+const getSingleItem = async (req, res) => {
+  const {id} = req.params
+
+    //Check if the item is a valid MONGODB object id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({error: `The item with the id of ${id} couldent be found, isnt valid or dosent exist`})
+    }
+
+  const findItem = await ItemModel.findOne({_id: id})
+  
+  res.status(200).json(findItem)
 }
 
 // Adds item to the database with mongoose schema
